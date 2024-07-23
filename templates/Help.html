@@ -1,0 +1,436 @@
+{# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+{% block content -%}
+
+
+
+<style type="text/css">
+a:hover{
+color:#117341;
+text-decoration:underline;  
+}
+.ccc{
+text-decoration:underline;
+color:#117341;
+}
+.ddd{
+text-decoration:none;
+color:#117341;
+}
+</style>
+
+
+
+<style>
+ .center{
+  text-align:justify;
+  text-align-last: justify;
+  font-size: 16px;
+}
+span{
+  display:inline-block;
+  width:100%;
+}
+.lead2{
+font-size: 18px;
+}
+.lead3{
+font-size: 16px;
+text-align:justify;
+}
+.lead4{
+  text-align:justify;
+  text-align-last: justify;
+  font-size: 18px;
+}
+</style>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables.min.css') }}">
+
+
+<script>
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#help').classList.add('active')
+</script>
+
+<script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+
+<script>
+$(document).ready(function() {
+    $('#table1').DataTable({
+	"autoWidth": false	
+	});
+});
+</script>	
+
+<script>
+$(document).ready(function() {
+    $('#table2').DataTable({
+	"autoWidth": false	
+	});
+});
+</script>	
+
+<script>
+$(document).ready(function() {
+    $('#table3').DataTable({
+	"autoWidth": false	
+	});
+});
+</script>	
+
+<div class="container-fluid">
+      <div class="row">
+           <div class="col-md-6 offset-md-1">
+            <br>
+             <h3>&#8251; Help</h3>
+            </div>
+      </div>
+      
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		    <h3>1.Brief introduction</h3>
+			<p class="lead4"><strong>PTM</strong> (Post translational modification) of proteins has two regulatory roles on LLPS (Liquid-Liquid <strong>Pha</strong>se <strong>Se</strong>paration)<sup>1,2,3,4,5,6,7,8</sup>: <strong>1)promotion</strong> and <strong>2)inhibition</strong>. All PTMPhaSe data were curated manually from literatures. The literatures mining was performed via three ways: (<strong>1</strong>) retrieve LLPS records and associated literatures from <strong>8</strong> well-curated PTM databases (<strong>UniProt</strong>, <strong>PhosphoSitePlus</strong>, <strong>dbPTM</strong>, <strong>EPSD</strong>, <strong>CPLM</strong>, <strong>PTMD</strong>, <strong>iPTMnet</strong>, <strong>BIOGRID</strong>); (<strong>2</strong>) retrieve PTM records and associated literatures from <strong>5</strong> well-curated LLPS databases (<strong>PhaSepDB</strong>, <strong>DrLLPS</strong>, <strong>LLPSDB</strong>, <strong>PhaSePro</strong>, <strong>RNAgranuleDB</strong>); (<strong>3</strong>) retrieve relevant literature in PubMed (<strong>before July, 2024</strong>) by key words and combinations: <font color="#FF8000">liquid-liquid phase separation</font>, <font color="#FF8000">phase separation</font>, <font color="#FF8000">phase transition</font>, <font color="#FF8000">Cajal body</font>, <font color="#FF8000">stress granule</font>, <font color="#FF8000">P-body</font>, <font color="#FF8000">processing body</font>, <font color="#FF8000">nuage</font>, <font color="#FF8000">P granule</font>, <font color="#FF8000">nuclear speckle</font>, <font color="#FF0080">PTM</font>, <font color="#FF0080">post translational modification</font>, <font color="#FF0080">modification</font>, <font color="#FF0080">phosphorylation</font>, <font color="#FF0080">acetylation</font>, <font color="#FF0080">methylation</font>, <font color="#FF0080">SUMOylation</font>, <font color="#FF0080">ubiquitylation</font>, <font color="#FF0080">glycosylation</font>. Then, we checked the full-text of above nearly <strong>6,000</strong> papers carefully to obtain complete experimental evidence, which included upstream enzymes, PTM sites and types, effects, LLPS regions, LLPS partners, detection methods, membraneless organelles (MLOs) and associated diseases.</p>
+			<p class="lead2">References:<br>	
+			(1). Fujioka Y et al. Phase separation organizes the site of autophagosome formation. <strong><i>Nature</i></strong>. 2020,578(7794):301-305. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/32025038/" target="_blank" class="ccc">32025038</a>.<br>				
+			(2). Yang P et al. G3BP1 Is a Tunable Switch that Triggers Phase Separation to Assemble Stress Granules. <strong><i>Cell</i></strong>. 2020,181(2):325-345.e28. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/32302571/" target="_blank" class="ccc">32302571</a>.<br>	
+			(3). Hofweber M et al. Phase Separation of FUS Is Suppressed by Its Nuclear Import Receptor and Arginine Methylation. <strong><i>Cell</i></strong>. 2018,173(3):706-719.e13. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/29677514/" target="_blank" class="ccc">29677514</a>.<br>		
+			(4). Kim TH et al. Phospho-dependent phase separation of FMRP and CAPRIN1 recapitulates regulation of translation and deadenylation. <strong><i>Science</i></strong>. 2019,365(6455):825-829. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/31439799/" target="_blank" class="ccc">31439799</a>.<br>								
+			(5). Qin Z et al. Deactylation by SIRT1 enables liquid-liquid phase separation of IRF3/IRF7 in innate antiviral immunity. <strong><i>Nat Immunol</i></strong>. 2022,23(8):1193-1207. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/35879450/" target="_blank" class="ccc">35879450</a>.<br>	
+			(6). Lv P et al. O-GlcNAcylation modulates liquid-liquid phase separation of SynGAP/PSD-95. <strong><i>Nat Chem</i></strong>. 2022,14(7):831-840. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/35637289/" target="_blank" class="ccc">35637289</a>.<br>	
+			(7). Wang D et al. Homodimer-mediated phosphorylation of C/EBPα-p42 S16 modulates acute myeloid leukaemia differentiation through liquid-liquid phase separation. <strong><i>Nat Commun</i></strong>. 2023,14(1):6907. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/37903757/" target="_blank" class="ccc">37903757</a>.<br>	
+			(8). Liu D et al. IFI16 phase separation via multi-phosphorylation drives innate immune signaling. <strong><i>Nucleic Acids Res</i></strong>. 2023,51(13):6819-6840. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/37283074/" target="_blank" class="ccc">37283074</a>.</p>						
+
+			
+			</div>
+	  </div>
+	  
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		<br>
+		    <h3>2.Data resources</h3>
+	    </div>
+	  </div>
+
+
+  
+  
+	  
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		   <table id="table1" class="display" style="width:100%">
+		     <thead>
+			   <tr>
+			     <th style="width:10%">PTM databases</th>
+				 <th style="width:20%">Description</th>
+				 <th style="width:20%">URL</th>
+			   </tr>
+
+			 </thead>
+			 <tbody>
+			   <tr>
+				 <td>UniProt&#9312</td>
+				 <td>Comprehensive protein annotation</td>
+				 <td><a href="http://www.uniprot.org/" target="_blank" class="ddd">http://www.uniprot.org/</a></td>
+			   <tr>
+
+			   <tr>
+				 <td>PhosphoSitePlus&#9313</td>
+				 <td>Dieases, structures and function of PTM</td>
+				 <td><a href="https://www.phosphosite.org/" target="_blank" class="ddd">https://www.phosphosite.org/</a></td>
+			   <tr>
+			   
+			   <tr>
+				 <td>dbPTM&#9314</td>
+				 <td>Disease association and cross-talk of post-translational modifications </td>
+				 <td><a href="https://awi.cuhk.edu.cn/dbPTM/" target="_blank" class="ddd">https://awi.cuhk.edu.cn/dbPTM/</a></td>
+			   <tr>
+			   
+			   <tr>
+				 <td>EPSD&#9315</td>
+				 <td>Database of Protein phosphorylation sites in eukaryotes</td>
+				 <td><a href="http://epsd.biocuckoo.cn/" target="_blank" class="ddd">http://epsd.biocuckoo.cn/</a></td>
+			   <tr>
+
+			   <tr>
+				 <td>CPLM&#9316</td>
+				 <td>Database of Protein lysine modifications</td>
+				 <td><a href="http://cplm.biocuckoo.cn/" target="_blank" class="ddd">http://cplm.biocuckoo.cn/</a></td>
+			   <tr>	
+	
+			   <tr>
+				 <td>PTMD&#9317</td>
+				 <td>Database of PTMs that are associated with human Diseases</td>
+				 <td><a href="http://ptmd.biocuckoo.org/" target="_blank" class="ddd">http://ptmd.biocuckoo.org/</a></td>
+			   <tr>  
+			   
+			   <tr>
+				 <td>iPTMnet&#9318</td>
+				 <td>Protein post-translational modification networks</td>
+				 <td><a href="https://research.bioinformatics.udel.edu/iptmnet/" target="_blank" class="ddd">https://research.bioinformatics.udel.edu/iptmnet/</a></td>
+			   <tr>
+			   
+			   
+			   <tr>
+				 <td>BIOGRID&#9319</td>
+				 <td>Database of Protein, Genetic, Chemical Interactions and PTM</td>
+				 <td><a href="https://thebiogrid.org/" target="_blank" class="ddd">https://thebiogrid.org/</a></td>
+			   <tr>
+		   
+			  </tbody>
+			 </table>
+		 	 
+</div>
+</div>
+
+
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+          <br>
+		   <table id="table2" class="display" style="width:100%">
+		     <thead>
+			   <tr>
+			     <th style="width:10%">LLPS databases</th>
+				 <th style="width:20%">Description</th>
+				 <th style="width:20%">URL</th>
+			   </tr>
+			 </thead>
+			 <tbody>
+			   <tr>
+				 <td>PubMed&#9312</td>
+				 <td>Collection of published literature</td>
+				 <td><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="ddd">https://pubmed.ncbi.nlm.nih.gov/</a></td>
+			   <tr>
+			   			  
+			   <tr>
+				 <td>PhaSepDB&#9313</td>
+				 <td>Database of liquid-liquid phase separation related proteins</td>
+				 <td><a href="http://db.phasep.pro/" target="_blank" class="ddd">http://db.phasep.pro/</a></td>
+			   <tr>
+			   
+			   <tr>
+				 <td>DrLLPS&#9314</td>
+				 <td>Data resource of liquid-liquid phase separation in eukaryotes</td>
+				 <td><a href="http://llps.biocuckoo.cn/" target="_blank" class="ddd">http://llps.biocuckoo.cn/</a></td>
+			   <tr>
+			   
+			   <tr>
+				 <td>LLPSDB&#9315</td>
+				 <td>Database of proteins undergoing liquid-liquid phase separation in vitro</td>
+				 <td><a href="http://bio-comp.org.cn/llpsdb/home.html" target="_blank" class="ddd">http://bio-comp.org.cn/llpsdb/home.html/</a></td>
+			   <tr>
+
+			   <tr>
+				 <td>PhaSePro&#9316</td>
+				 <td>Database of proteins driving liquid-liquid phase separation</td>
+				 <td><a href="https://phasepro.elte.hu/" target="_blank" class="ddd">https://phasepro.elte.hu/</a></td>
+			   <tr>	
+	
+			   <tr>
+				 <td>RNAgranuleDB&#9317</td>
+				 <td>Comprehensive summary of SG and PB components</td>
+				 <td><a href="https://rnagranuledb.lunenfeld.ca/" target="_blank" class="ddd">https://rnagranuledb.lunenfeld.ca/</a></td>
+			   <tr>  
+
+		   
+			  </tbody>
+			 </table>	 	 
+</div>
+</div>
+
+	 
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+          <br>
+		   <table id="table3" class="display" style="width:100%">
+		     <thead>
+			   <tr>
+			     <th style="width:10%">Other resources</th>
+				 <th style="width:20%">Description</th>
+				 <th style="width:20%">URL</th>
+			   </tr>
+			 </thead>
+			 <tbody>
+			   <tr>
+				 <td>Protein Data Bank&#9312</td>
+				 <td>Collection of Experimentally-determined 3D structures</td>
+				 <td><a href="https://www.rcsb.org/" target="_blank" class="ddd">https://www.rcsb.org/</a></td>
+			   <tr>
+			   			  
+			   <tr>
+				 <td>AlphaFold Database&#9313</td>
+				 <td>Database of high-accuracy models from AlphaFold v2.0</td>
+				 <td><a href="https://alphafold.ebi.ac.uk/" target="_blank" class="ddd">https://alphafold.ebi.ac.uk/</a></td>
+			   <tr>
+
+			   <tr>
+				 <td>HINT Database&#9314</td>
+				 <td>Compilation of high-quality protein-protein interactions</td>
+				 <td><a href="https://hint.yulab.org/" target="_blank" class="ddd">https://hint.yulab.org/</a></td>
+			   <tr>
+			   
+			   <tr>
+				 <td>SMART database&#9315</td>
+				 <td>Protein domain annotation resource</td>
+				 <td><a href="http://smart.embl-heidelberg.de/" target="_blank" class="ddd">http://smart.embl-heidelberg.de/</a></td>
+			   <tr>
+			   
+			   <tr>
+				 <td>IUPred2A&#9316</td>
+				 <td>Prediction of Intrinsically Unstructured Proteins</td>
+				 <td><a href="https://iupred2a.elte.hu/" target="_blank" class="ddd">https://iupred2a.elte.hu/</a></td>
+			   <tr>
+
+
+		   
+			  </tbody>
+			 </table>	 	 
+</div>
+</div>
+
+
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		<br>
+		    <h3>3.Browse</h3>
+			<p class="lead2">Users can easily specify Organisms, PTM or MLOs to retrieve the results.</p>
+			<img src="{{ url_for('static', filename='img/browse.png') }}" class="img-fluid mx-auto d-block" width="95%"/>	
+	    </div>
+	  </div>
+
+
+
+
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		<br>
+		    <h3>4.Search</h3> 
+			<p class="lead2">PTMPhaSe database provides two search ways for users: 1)Quick search; 2)Advanced search.<br>
+			The hit results will be shown in the tabular format. And detailed results can be obtained by clicking "<font color="#117341">Show</font>" buttons.</p>
+			<img src="{{ url_for('static', filename='img/search.png') }}" class="img-fluid mx-auto d-block" width="95%" />
+	    </div>
+	  </div>
+
+
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		<br>
+		    <h3>5.Results</h3>
+			<p class="lead2">Click the "<font color="#117341">Show</font>" button, the detailed results will be shown in a new page, which includes four sections:</p>
+			<p class="lead2"><strong>(1)Overview</strong>, which provides protein basic information, protein structure and external links.</p>
+			<img src="{{ url_for('static', filename='img/result1.png') }}" class="img-fluid mx-auto d-block" width="95%"/>
+			<br>
+			<p class="lead2"><strong>(2)Protein features</strong>. Disorder analysis: Exceed 0.5 means disorder.</p>
+			<img src="{{ url_for('static', filename='img/result2.png') }}" class="img-fluid mx-auto d-block" width="95%"/>
+			<br>
+			<p class="lead2"><strong>(3)PTM on Liquid-Liquid Phase Separation</strong>, which be composed of three parts: complete experimental evidence, structure and site annotation.</p>
+			<img src="{{ url_for('static', filename='img/result3.png') }}" class="img-fluid mx-auto d-block" width="95%"/>
+			<br>
+			<p class="lead2"><strong>(4)High-quality validated Protein-Protein Interactions</strong></p>
+			<img src="{{ url_for('static', filename='img/result4.png') }}" class="img-fluid mx-auto d-block" width="95%"/>
+	    </div>
+	  </div>
+	  
+	  
+
+
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		<br>
+		   <h3>6.Statistics</h3>
+          <p class="lead2">
+		  Users can easily obtain intuitive statistics of PTMPhaSe database, including Organisms, MLOs, PTM, Proteins and Literature.
+
+		  </p>
+        </div>
+      </div>		  
+
+
+
+
+
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		<br>
+		   <h3>7.Related works</h3>
+          <p class="lead2">(1). <u>Hong X</u>, Li N, Lv J, Zhang Y, Li J*, Zhang J*, Chen HF*. PTMint database of experimentally verified PTM regulation on protein-protein interaction. <strong><i>Bioinformatics</i></strong>. 2023,39(1):btac823. doi: <a href="https://doi.org/10.1093/bioinformatics/btac823" target="_blank" class="ccc"><strong>10.1093/bioinformatics/btac823</strong></a>. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/36548389/" target="_blank" class="ccc"><strong>36548389</strong></a>. Website: <a href="https://ptmint.sjtu.edu.cn/" target="_blank" class="ccc"><strong>https://ptmint.sjtu.edu.cn/</strong></a><br><br>
+		  (2). <u>Hong X</u>, Lv J, Li Z, Xiong Y, Zhang J*, Chen HF*. Sequence-based machine learning method for predicting the effects of phosphorylation on protein-protein interactions. <strong><i>Int J Biol Macromol</i></strong>. 2023,243:125233. doi: <a href="https://doi.org/10.1016/j.ijbiomac.2023.125233" target="_blank" class="ccc"><strong>10.1016/j.ijbiomac.2023.125233</strong></a>. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/37290543/" target="_blank" class="ccc"><strong>37290543</strong></a>. Website: <a href="https://phosppi.sjtu.edu.cn/" target="_blank" class="ccc"><strong>https://phosppi.sjtu.edu.cn/</strong></a><br><br>
+		  (3). <u>Hong X</u>, Song K, Rahman MU, Wei T, Zhang Y, Da LT*, Chen HF*. Phosphorylation Regulation Mechanism of β2 Integrin for the Binding of Filamin Revealed by Markov State Model. <strong><i>J Chem Inf Model</i></strong>. 2023,63(2):605-618. doi: <a href="https://doi.org/10.1021/acs.jcim.2c01177" target="_blank" class="ccc"><strong>10.1021/acs.jcim.2c01177</strong></a>. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/36607244/" target="_blank" class="ccc"><strong>36607244</strong></a>.
+		  
+		  </p>
+        </div>
+      </div>	
+	     
+
+	  
+	  
+	  
+
+	  
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+	
+		   <h3>8.Contact</h3>
+          <p class="lead2">PTMPhaSe database codes has been deposited in GitHub repository: <a href="https://github.com/HFChenLab/PTMPhaSe" target="_blank" class="ccc"><strong>PTMPhaSe</strong></a>.<br>
+		  We are very glad to obtain any feedbacks, suggestions, or comments about PTMPhaSe database from global users! Don't hesitate to <a href="/Contact" target="_blank" class="ccc"><strong>contact us</strong></a>!</p>
+        </div>
+      </div>		
+	  
+
+	  
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+		   <h3>9.Citation</h3>
+          <p class="lead2">When refering to PTMPhaSe, please cite: Hong X, Lv J, Li Z, Mu J, Chen HF*. PTMPhaSe: a well-curated database of PTM regulation on liquid-liquid phase separation. 2024, <i>Submitted</i>.</p>
+        </div>
+      </div>		
+		 
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+  
+{%- endblock content %}

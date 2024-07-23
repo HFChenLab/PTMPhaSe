@@ -1,0 +1,144 @@
+{# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+
+{% block content -%}
+
+<!--<style type="text/css">-->
+<!--a:link,a:visited{-->
+<!-- text-decoration:none;  /*超链接无下划线*/-->
+<!--}-->
+<!--a:hover{-->
+<!-- text-decoration:underline;  /*鼠标放上去有下划线*/-->
+<!--}-->
+<!--</style>-->
+<script>
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#search').classList.add('active')
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.dataTables.min.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+
+
+<style>
+    .col-width-1 { width: 15% !important; }
+    .col-width-2 { width: 15% !important; }
+    .col-width-3 { width: 15% !important; }
+    .col-width-4 { width: 20% !important; }
+    .col-width-5 { width: 20% !important; }	
+    .col-width-6 { width: 15% !important; }
+</style>
+
+
+<div class="container-fluid">
+
+   <div class="row">
+   <div class="col-md-10 offset-md-1">
+     <br>
+       <h3>&#8251; Browse results</h3>
+	   <p class="lead" ><strong>Click '<font color="#009100">Show</font>' button for detailed results!</strong></p>
+
+   </div>
+   </div>
+
+   <div class="row">
+      <div class="col-md-10 offset-md-1">
+          <table id="example" class="row-border hover order-column" style="width:100%">
+           <thead>
+              <tr>
+                  <th class="col-width-1">Organism</th>
+                  <th class="col-width-2">Gene</th>
+                  <th class="col-width-3">Uniprot</th>
+                  <th class="col-width-4">PTM</th>
+                  <th class="col-width-5">PMID</th>
+                  <th class="col-width-6">Detail</th>
+              </tr>
+           </thead>
+           <tbody>
+            {% for foo in browse_list %}
+              <tr>
+                  <td>{{ foo.Organism }}</td>
+                  <td>{{ foo.Gene }}</td>
+                  <td><a href="https://www.uniprot.org/uniprot/{{ foo.Uniprot }}" title="Visit Uniprot" target="_blank" class="bbb">{{ foo.Uniprot }}</a></td>
+                  <td>{{ foo.PTM }}</td>
+                  <td> <a href="https://pubmed.ncbi.nlm.nih.gov/{{ foo.PMID}}" title="Visit PubMed" target="_blank" class="bbb">{{ foo.PMID}}</a></td>
+                  <td><a href="Search/{{ foo.Uniprot }}" title="View results"><button type="button" class="btn btn-success" style="background-color:#117341;border-color:#117341">Show</button></a></td>
+              </tr>
+           {% endfor %}
+           </tbody>
+
+           </table>
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable({"createdRow": function (row, data, dataIndex) {
+          // row : tr dom
+          // data: row data
+          // dataIndex:row data's index
+          if (data[3] == "Phos") {
+              $('td', row).css("color", "#0000FF");
+          }
+          if (data[3] == "Ac") {
+              $('td', row).css("color", "#008837");
+          }
+          if (data[3] == "Me") {
+              $('td', row).css("color", "#C2000C");
+          }
+          if (data[3] == "Sumo") {
+              $('td', row).css("color", "#A0632F");
+          }
+          if (data[3] == "Ub") {
+              $('td', row).css("color", "#843593");
+          }
+
+
+      },});
+
+
+    $('#example tbody')
+        .on( 'mouseenter', 'td', function () {
+            var colIdx = table.cell(this).index().column;
+
+            $( table.cells().nodes() ).removeClass( 'highlight' );
+            $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+        } );
+} );
+</script>
+
+
+     </div>
+   </div>
+
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <br>
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+  
+{%- endblock content %}

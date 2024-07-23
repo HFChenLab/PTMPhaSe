@@ -1,0 +1,135 @@
+ {# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+{% block content -%}
+<script type="text/jscript">
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#home').classList.add('active')
+
+	function compute3(){
+	document.getElementById("keyword").value="FUS";
+	}
+
+	function compute4(){
+	document.getElementById("keyword").value="";
+	}
+</script>
+
+<style>
+  .center{
+  text-align:justify;
+  text-align-last: justify;
+}
+span{
+  display:inline-block;
+  width:100%;
+}
+</style>
+
+<style type="text/css">
+a:hover{
+color:#117341;
+text-decoration:underline;  
+}
+.ccc{
+text-decoration:underline;
+color:#117341;
+}
+.ddd{
+text-decoration:none;
+color:#117341;
+}
+</style>
+
+<div class="container-fluid">
+  <form class="form form-horizontal" method="POST" action="/Home" role="form">
+      <div class="row">
+          <div class="col-md-4">
+              <br>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5 offset-md-1">
+
+          <h3>&#8251; Introduction</h3>
+<!--          <p class="lead">Post translational modification (<strong><font color=red>PTM</font></strong>) is an <strong>important</strong> biochemical process, which consists of six main types: <strong><font color=blue>phosphorylation</font></strong> (Phos), <strong><font color=blue>acetylation</font></strong> (Ac), <strong><font color=blue>methylation</font></strong> (Me), <strong><font color=blue>sumoylation</font></strong> (Sumo), <strong><font color=blue>ubiquitylation</font></strong> (Ub) and <strong><font color=blue>glycosylation</font></strong> (Glyco). PTM is involved in various cell signaling pathways and biological processes. However, although several databases have stored thousands of PTM sites, a resource for PTM on protein-protein interactions (<strong>PPI</strong>) still remains to be developed. </p>-->
+            <p class="center">Here, we constructed a well-curated database of <strong>PTM</strong> regulation on liquid-liquid <strong>Pha</strong>se <strong>Se</strong>paration (<strong><font color="#ffc107">PTMPhaSe</font></strong>) that contains manually curated <strong><font color="#FF0000">complete experimental evidence</font></strong> of PTMs modulating LLPS (<strong><font color="#0000FF">promotion</font></strong> and <strong><font color="#0000FF">inhibition</font></strong>) in 14 organisms, mainly including <strong><font color=green><i>H. sapines</i></font></strong>, <strong><font color=green><i>M. musculus</i></font></strong>, <strong><font color=green><i>C. elegans</i></font></strong>, <strong><font color=green><i>S. cerevisiae</i></font></strong>, <strong><font color=green><i>R. norvegicus</i></font></strong> and <strong><font color=green><i>A. thaliana</i></font></strong>. Currently, PTMPhaSe V1.0 encompasses <strong><font color=green>733</font></strong> non-redundant PTM sites of <strong><font color=green>164</font></strong> proteins that modulating <strong><font color=green>LLPS</font></strong> involving <strong><font color=green>82</font></strong> diseases. Various annotations were systematically integrated, such as <strong><font color="#FF0000">sequence properties</font></strong>, <strong><font color="#FF0000">structure properties</font></strong> and <strong><font color="#FF0000">protein-protein interactions(PPI)</font></strong>. We believed that PTMPhaSe could serve as a powerful platform to gain a better understanding of <strong><font color="blue">disease development</font></strong>, <strong><font color="blue">disease diagnosis</font></strong> and <strong><font color="blue">drug discovery</font></strong>.</p>
+
+        </div>
+
+        <div class="col-md-4 offset-md-1" >
+         <img src="{{ url_for('static', filename='img/complex4.png') }}" width="600px" class="img-rounded"/>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-5 offset-md-1" style="background-color: 	#90EE90">
+            <h3>Quick Search<img src="{{ url_for('static', filename='img/wenhao.png') }}" width="28" height="28" border="0" title="Examples: FUS, P35637, Phosphorylation, Homo sapines"></h3>
+            <br>
+        </div>
+        <div class="col-md-5 offset-md-1">
+            <h3>Citation</h3>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5 offset-md-1 no-label" style="background-color: #90EE90">
+            <input class="form-control autocomplete" id="keyword" name="keyword" type="text"  placeholder="eg Gene, Uniprot, PTM, Organism">
+        </div>
+
+
+        <div class="col-md-5 offset-md-1">
+		<h5>When refering to PTMPhaSe, please cite:<br><br> Hong X, Lv J, Li Z, Mu J, Chen HF*. PTMPhaSe: a well-curated database of PTM regulation on liquid-liquid phase separation. 2024, <i>Submitted</i>.</h5>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-1 offset-md-1" style="background-color: #90EE90">
+              <input class="btn btn-success" id="example3" name="example3" type="button" value="Example" onClick="compute3()" style="background-color:#117341;border-color:#117341">
+          </div>
+           <div class="col-md-1" style="background-color: #90EE90">
+              <input class="btn btn-success" id="example4" name="example4" type="button" value="Clear" onClick="compute4()" style="background-color:#117341;border-color:#117341">
+          </div>
+           <div class="col-md-1" style="background-color: #90EE90">
+             <input class="btn btn-success" id="submit" name="submit" type="submit" value="Search" style="background-color:#F39925;border-color:#F39925">
+          </div>
+		  <div class="col-md-2" style="background-color: #90EE90">
+             <a href="/Search" target="_blank"><input class="btn btn-success" id="submit5" name="submit5" type="submit2" value="Advanced Search" style="background-color:#F39925;border-color:#F39925"></a>
+          </div>
+		  
+
+      </div>
+
+
+
+      <div class="row">
+          <div class="col-md-6 offset-md-1">
+              <font color="red"><h3>{{X10}}</h3></font>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <br>
+          <h3><a href="/Statistics" target="_blank" class="ccc" title="Click for detailed statistics!">Statistics of PTMPhaSe</a></h3>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+		<a href="/Statistics" target="_blank" class="ccc">
+          <img src="{{ url_for('static', filename='img/merge_statistics4.png') }}" width="100%" title="Click for detailed statistics!"/>
+         </a> 
+          
+        </div>
+      </div>
+
+</form>
+</div>
+  
+{%- endblock content %}

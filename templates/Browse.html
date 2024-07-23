@@ -1,0 +1,218 @@
+{% extends "mybase.html" %}
+
+{% block content -%}
+
+<script>
+    let $a = document.querySelector('.menuItem.active')
+    if ($a) { $a.classList.remove('active') }
+    document.querySelector('#browse').classList.add('active')
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.dataTables.min.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+
+
+<style>
+    .nav-item {
+        font-size: 20px;
+    }
+
+    .nav-tabs .nav-link.active,
+    .nav-tabs .nav-item.show .nav-link {
+        color: #F00F00;
+        background-color: #fff;
+        border-color: #dee2e6 #dee2e6 #fff;
+    }
+
+    .ptmitem {
+        padding: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ptmitem>div {
+        cursor: pointer;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        width: 100%;
+        height: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        background-color: rgb(165, 233, 210);
+        color: #444;
+        /* text-decoration: underline; */
+    }
+
+    .ptmitem.active>div {
+        color: #fff;
+        background-color: rgb(228, 181, 53);
+    }
+
+    .ptmitem>div:hover {
+        color: #fff;
+        background-color: rgb(250, 207, 89);
+        /* 设置鼠标滑动时的文字颜色 */
+    }
+
+    .col-width-1 {
+        width: 15% !important;
+    }
+
+    .col-width-2 {
+        width: 15% !important;
+    }
+
+    .col-width-3 {
+        width: 15% !important;
+    }
+
+    .col-width-4 {
+        width: 20% !important;
+    }
+
+    .col-width-5 {
+        width: 20% !important;
+    }
+
+    .col-width-6 {
+        width: 15% !important;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+
+            <br>
+            <h3><label for="search_type">&#8251; Browse</label></h3>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-menu="Organisms">Organisms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-menu="PTM">PTM</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-menu="MLOs">MLOs</a>
+                </li>
+            </ul>
+
+            <div class="row" id="dataTable">
+            </div>
+
+            <br>
+            <div>
+                <h3>Query List: </h3>
+            </div>
+            <table id="result" class="row-border hover order-column" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="col-width-1">Organism</th>
+                        <th class="col-width-2">Gene</th>
+                        <th class="col-width-3">Uniprot</th>
+                        <th class="col-width-4">PTM</th>
+                        <th class="col-width-5">PMID</th>
+                        <th class="col-width-6">Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    var itemList = {
+        Organisms: ["H. sapiens", "A. thaliana", "C. elegans", "D. melanogaster", "S. cerevisiae", "S. pombe", "M. musculus", "R. norvegicus", "S. scrofa", "M. tuberculosis", "SARS-COV2", "Bluetongue virus 2", "Measles virus", "C. hordei"],
+        PTM: ["Phosphorylation", "Methylation", "Acetylation", "SUMOylation", "ADP-ribosylation", "Ubiquitination", "Citrullination", "Glycosylation", "Glutathionylation", "Hypusination", "NEDDylation", "N-myristoylation", "S-nitrosylation", "Hydroxylation"],
+        MLOs: ["Cajal body", "Centrosome", "Chromatin", "Droplet", "Insulator body", "Microtubule", "Nuage", "Nuclear speckle", "Nuclear Sress granule", "Nucleolus", "Others", "P granule", "Paraspeckle", "P-body", "PML nuclear body", "Postsynaptic density", "Spindle apparatus", "Sress granule"]
+    }, $dataTable, ID
+
+    $(document).ready(function () {
+        renderTable("Organisms")
+    });
+
+
+    function renderTable(id) {
+        ID = id
+        $("#dataTable").empty()
+        let offset = { Organisms: 0, PTM: itemList["Organisms"].length, MLOs: itemList["Organisms"].length + itemList["PTM"].length }[ID]
+        for (let i in itemList[ID]) {
+            $("#dataTable").append(`<div class="col-3 col-md-2 ptmitem ${i === '0' ? 'active' : ''}"><div data-id="${ID}" data-src="/get_table_data/table${parseInt(i) + 1 + offset}">${itemList[ID][i]}</div></div>`)
+        }
+        $(".ptmitem").click(function (e) {
+            if ($(this).hasClass("disabled") || $(this).hasClass("active")) return;
+            $(".ptmitem.active").removeClass("active");
+            this.classList.add("active");
+            ID = e.target.dataset.id
+            setResult(e.target.dataset.src)
+        })
+        setResult(`/get_table_data/table${1 + offset}`)
+    }
+
+
+    function setResult(src) {
+        $.get(src, renderResult)
+    }
+
+    function renderResult(e) {
+        if ($dataTable) $dataTable.destroy()
+        $tbody = $("#result tbody")
+        $tbody.empty()
+        for (let i of e) {
+            $tbody.append(`
+                    <tr>
+                       <td>${i.Organism}</td>
+                       <td>${i.Gene}</td>
+                       <td><a href="https://www.uniprot.org/uniprot/${i.Uniprot}" title="Visit Uniprot" target="_blank" class="bbb">${i.Uniprot}</a></td>
+                       <td>${i.PTM}</td>
+                       <td> <a href="https://pubmed.ncbi.nlm.nih.gov/${i.PMID}" title="Visit PubMed" target="_blank" class="bbb">${i.PMID}</a></td>
+                       <td><a href="Search${ID === "PTM" ? "/" + i.PTM : ""}/${i.Uniprot}" title="View results"><button type="button" class="btn btn-success" style="background-color:#117341;border-color:#117341">Show</button></a></td>
+                   </tr>
+                    `)
+        }
+        $dataTable = $('#result').DataTable({
+            "createdRow": function (row, data, dataIndex) {
+                let colorObj = {
+                    "Phos": "#0000FF",
+                    "Ac": "#008837",
+                    "Me": "#C2000C",
+                    "Sumo": "#A0632F",
+                    "Ub": "#843593"
+                }
+                $('td', row).css("color", colorObj[data[3]]);
+            },
+        });
+
+        $('#result tbody').unbind("onmouseenter")
+            .on('mouseenter', 'td', function () {
+                var colIdx = table.cell(this).index().column;
+                $(table.cells().nodes()).removeClass('highlight');
+                $(table.column(colIdx).nodes()).addClass('highlight');
+            });
+    }
+
+
+    $(".nav-link").click(function (e) {
+        if ($(this).hasClass("disabled") || $(this).hasClass("active")) return;
+        $(".nav-link.active").removeClass("active");
+        this.classList.add("active");
+        renderTable(e.target.dataset.menu)
+    })
+
+
+</script>
+
+{%- endblock content %}

@@ -1,0 +1,123 @@
+{# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+{# Adding a lang="en" attribute to the <html>-tag #}
+{% block html_attribs %}
+  lang="en"
+{% endblock %}
+
+{% block content -%}
+
+<script>
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#download').classList.add('active')
+</script>
+
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 offset-md-1">
+      <br>
+        <h3>&#8251; Download</h3><br>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-4 offset-md-1">
+       <a href="data/PTM experimental evidence.csv" title="Download PTM experimental evidence" class="bbb"><h3>1. PTM experimental evidence</h3></a><br>
+    </div>
+  </div>
+
+  <div class="row">
+     <div class="col-md-10 offset-md-1">
+        <p class="lead"><strong><1>Upstream enzymes <2>PTM sites and types <3>Sequence window (around the PTM site) <4>Effect <5>LLPS regions </p><br></strong>
+    </div>
+   </div>
+
+  <div class="row">
+     <div class="col-md-10 offset-md-1">
+        <p class="lead"><strong><6>LLPS partners <7>MLOs <8>Detection methods <9>Associated diseases <10>Supporting literature (PMID)</p><br></strong>
+    </div>
+   </div>
+
+
+
+
+  <div class="row">
+    <div class="col-md-4 offset-md-1">
+       <a href="data/Protein structure.zip" title="Download protein structure information" class="bbb"><h3>2. Protein structure information</h3></a><br>
+    </div>
+  </div>
+
+  <div class="row">
+     <div class="col-md-10 offset-md-1">
+        <p class="lead"><strong><1>PDB structures <2>AlphaFold2 structures </p><br></strong>
+    </div>
+   </div>
+
+
+   <div class="row">
+     <div class="col-md-6 offset-md-1">
+       <font color="#FF0000"><h4>Note: PTMPhaSe is ONLY free for academic research!</h4></font>
+	   <font color="#FF0000"><h4>For commercial usage, please <a href="/Contact" target="_blank" class="bbb">contact us</a>!</h4></font>
+<!-- <script type="text/javascript" src="//rf.revolvermaps.com/0/0/7.js?i=52mhyd1of4h&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;sx=0" async="async"></script>-->
+
+    <br>
+	<br>
+	<br>
+
+
+
+
+
+
+     </div>
+   </div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+{%- endblock content %}
+
+

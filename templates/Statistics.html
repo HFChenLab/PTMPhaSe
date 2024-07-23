@@ -1,0 +1,787 @@
+{# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+{% block content -%}
+
+
+
+<style type="text/css">
+a:hover{
+color:#117341;
+text-decoration:underline;  
+}
+.ccc{
+text-decoration:underline;
+color:#117341;
+}
+.ddd{
+text-decoration:none;
+color:#117341;
+}
+</style>
+
+
+
+<style>
+ .center{
+  text-align:justify;
+  text-align-last: justify;
+  font-size: 16px;
+}
+span{
+  display:inline-block;
+  width:100%;
+}
+.lead2{
+font-size: 18px;
+}
+
+</style>
+
+
+<style>
+    .col-width-1 { width: 10% !important; }
+    .col-width-2 { width: 10% !important; }
+    .col-width-3 { width: 15% !important; }
+    .col-width-4 { width: 65% !important; }
+</style>
+
+
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.dataTables.min.css') }}">
+
+<script>
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#statistics').classList.add('active')
+</script>
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/3Dmol.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+
+
+
+
+
+<div class="container-fluid">
+      <div class="row">
+           <div class="col-md-6 offset-md-1">
+            <br>
+             <h3>&#8251; Statistics</h3>
+            </div>
+      </div>
+      
+
+	  
+	  
+	  <div class="row">
+	    <div class="col-md-5 offset-md-1">
+		<br>
+		<h3>1.Organisms</h3>
+		<br>
+
+    <div id="main1" style="height:350%"></div>
+	
+<script type="text/javascript">
+var chartDom = document.getElementById('main1');
+var myChart1 = echarts.init(chartDom);
+var option;
+
+option = {
+
+    tooltip: {
+    trigger: 'item',
+    formatter: '{b} : {c} ({d}%)'
+  },
+    toolbox: {
+    show: true,
+    feature: {
+      mark: { show: true },
+      dataView: { show: false, readOnly: false },
+      restore: { show: false },
+      saveAsImage: { show: false }
+    }
+  },
+  legend: {
+        orient: 'vertical', // 垂直排列图例
+        right: 32,         // 距离右侧的距离
+        y: 'center',       // 垂直居中
+		        itemWidth: 10, // 图例标记的图形宽度
+        itemHeight: 10, // 图例标记的图形高度
+		        textStyle: {
+            fontSize: 11 // 这里设置图例的字体大小为14
+        }
+  },
+  series: [
+    {
+       label:{
+   show:true,
+   position:'inside', //inside 扇形图上 ，center 扇形图中间 ,  outside  扇形图外面
+   
+},
+      type: 'pie',
+      radius: '100%',
+	   center: ['40%', '50%'],
+      data: [
+        { value: 114, name: 'H. sapiens' },	 
+       { value: 11, name: 'M. musculus' },		
+        { value: 7, name: 'C. elegans' },
+        { value: 7, name: 'S. cerevisiae' },	
+        { value: 6, name: 'R. norvegicus' },	
+        { value: 5, name: 'A. thaliana' },	  
+        { value: 4, name: 'D. melanogaster' },
+        { value: 3, name: 'S. scrofa' },		
+        { value: 2, name: 'S. pombe' },
+        { value: 1, name: 'M. tuberculosis' },	
+        { value: 1, name: 'SARS-COV2' },
+        { value: 1, name: 'Bluetongue virus 2' },		
+        { value: 1, name: 'Measles virus' },
+        { value: 1, name: 'C. hordei' }		
+					
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+myChart1.setOption(option);
+
+</script>		
+</div>
+
+
+ <div class="col-md-5">
+	<br>
+	<h3>2.Membraneless organelles(MLOs)</h3>
+	<br>
+
+    <div id="main2" style="height:80%"></div>
+	
+<script type="text/javascript">
+var chartDom = document.getElementById('main2');
+var myChart1 = echarts.init(chartDom);
+var option;
+
+option = {
+
+    tooltip: {
+    trigger: 'item',
+    formatter: '{b} : {c} ({d}%)'
+  },
+    toolbox: {
+    show: true,
+    feature: {
+      mark: { show: true },
+      dataView: { show: false, readOnly: false },
+      restore: { show: false },
+      saveAsImage: { show: false }
+    }
+  },
+  legend: {
+        orient: 'vertical', // 垂直排列图例
+        right: 5,         // 距离右侧的距离
+        y: 'center',       // 垂直居中
+		        itemWidth: 10, // 图例标记的图形宽度
+        itemHeight: 10, // 图例标记的图形高度
+		        textStyle: {
+            fontSize: 11 // 这里设置图例的字体大小为14
+        }
+  },
+  series: [
+    {
+       label:{
+   show:true,
+   position:'inside', //inside 扇形图上 ，center 扇形图中间 ,  outside  扇形图外面
+    formatter: '{d}%' 
+},
+      type: 'pie',
+      radius: '100%',
+	   center: ['40%', '50%'],
+      data: [
+        { value: 67, name: 'Droplet' },	 
+        { value: 44, name: 'Sress granule' },	
+        { value: 17, name: 'Nuclear speckle' },	
+        { value: 16, name: 'P-body' },	  
+        { value: 15, name: 'PML nuclear body' },
+        { value: 7, name: 'Spindle apparatus' },		
+        { value: 6, name: 'Chromatin' },
+        { value: 4, name: 'Postsynaptic density' },	
+        { value: 4, name: 'Microtubule' },
+        { value: 3, name: 'Cajal body' },	
+        { value: 3, name: 'Nucleolus' },
+        { value: 2, name: 'P granule' },			
+        { value: 2, name: 'Others' },
+        { value: 1, name: 'Nuclear Sress granule' },		
+        { value: 1, name: 'Paraspeckle' },
+        { value: 1, name: 'Centrosome' },		
+        { value: 1, name: 'Insulator body' },
+        { value: 1, name: 'Nuage' },						
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+myChart1.setOption(option);
+
+</script>		
+</div>
+		
+</div>
+
+	  <div class="row">
+	    <div class="col-md-5 offset-md-1">
+		<br>
+		<h3>3.PTM types</h3>
+        <br>
+    <div id="main3" style="height:350%"></div>
+	
+<script type="text/javascript">
+var chartDom = document.getElementById('main3');
+var myChart1 = echarts.init(chartDom);
+var option;
+
+option = {
+
+    tooltip: {
+    trigger: 'item',
+    formatter: '{b} : {c} ({d}%)'
+  },
+    toolbox: {
+    show: true,
+    feature: {
+      mark: { show: true },
+      dataView: { show: false, readOnly: false },
+      restore: { show: false },
+      saveAsImage: { show: false }
+    }
+  },
+  legend: {
+        orient: 'vertical', // 垂直排列图例
+        right: 42,         // 距离右侧的距离
+        y: 'center',       // 垂直居中
+		        itemWidth: 10, // 图例标记的图形宽度
+        itemHeight: 10, // 图例标记的图形高度
+		        textStyle: {
+            fontSize: 11 // 这里设置图例的字体大小为14
+        }
+  },
+  series: [
+    {
+       label:{
+   show:true,
+   position:'inside', //inside 扇形图上 ，center 扇形图中间 ,  outside  扇形图外面
+    formatter: '{d}%' 
+},
+      type: 'pie',
+      radius: '100%',
+	   center: ['40%', '50%'],
+      data: [
+        { value: 547, name: 'Phosphorylation' },	  
+        { value: 130, name: 'Methylation' },	  
+        { value: 53, name: 'Acetylation' },
+        { value: 44, name: 'SUMOylation' },
+        { value: 37, name: 'ADP-ribosylation' },
+        { value: 26, name: 'Ubiquitination' },
+        { value: 8, name: 'Citrullination' },	
+        { value: 4, name: 'Glycosylation' },
+        { value: 1, name: 'Glutathionylation' },
+        { value: 1, name: 'Hypusination' },
+        { value: 1, name: 'NEDDylation' },	
+        { value: 1, name: 'N-myristoylation' },
+        { value: 1, name: 'S-nitrosylation' },		
+        { value: 1, name: 'Hydroxylation' },		
+
+					
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+myChart1.setOption(option);
+
+</script>
+				
+ </div>
+ 
+ 
+<div class="col-md-5">
+<br>
+		<h3>4.PTM sites</h3>
+<br>
+    <div id="main4" style="height:80%"></div>
+	
+<script type="text/javascript">
+var chartDom = document.getElementById('main4');
+var myChart1 = echarts.init(chartDom);
+var option;
+
+option = {
+
+    tooltip: {
+    trigger: 'item',
+    formatter: '{b} : {c} ({d}%)'
+  },
+    toolbox: {
+    show: true,
+    feature: {
+      mark: { show: true },
+      dataView: { show: false, readOnly: false },
+      restore: { show: false },
+      saveAsImage: { show: false }
+    }
+  },
+  legend: {
+        orient: 'vertical', // 垂直排列图例
+        right: 80,         // 距离右侧的距离
+        y: 'center',       // 垂直居中
+		        itemWidth: 10, // 图例标记的图形宽度
+        itemHeight: 10, // 图例标记的图形高度
+		        textStyle: {
+            fontSize: 11 // 这里设置图例的字体大小为14
+        }
+  },
+  series: [
+    {
+       label:{
+   show:true,
+   position:'inside', //inside 扇形图上 ，center 扇形图中间 ,  outside  扇形图外面
+    formatter: '{d}%' 
+},
+      type: 'pie',
+      radius: '100%',
+	   center: ['40%', '50%'],
+      data: [
+        { value: 351, name: 'Serine(S)' },	  
+        { value: 129, name: 'Lysine(K)' },	  
+        { value: 126, name: 'Arginine(R)' },	  
+        { value: 74, name: 'Threonine(T)' },	  
+        { value: 32, name: 'Tyrosine(Y)' },	  
+        { value: 10, name: 'Glycine(G)' },	  
+        { value: 3, name: 'Asparticacid(D)' },	  
+        { value: 2, name: 'Alanine(A)' },	  
+        { value: 2, name: 'Cysteine(C)' },	  
+        { value: 2, name: 'Tryptophan(W)' },	  
+        { value: 1, name: 'Isoleucine(I)' },	  
+        { value: 1, name: 'Proline(P)' },	 		
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+myChart1.setOption(option);
+
+</script>
+				
+ </div>
+ 
+</div>
+
+
+
+
+
+
+
+
+
+
+	  <div class="row">
+	    <div class="col-md-5 offset-md-1">
+		<br>
+		<h3>5.Protein function classification</h3>
+        <br>
+    <div id="main5" style="height:350%"></div>
+	
+<script type="text/javascript">
+var chartDom = document.getElementById('main5');
+var myChart1 = echarts.init(chartDom);
+var option;
+
+option = {
+
+    tooltip: {
+    trigger: 'item',
+    formatter: '{b} : {c} ({d}%)'
+  },
+    toolbox: {
+    show: true,
+    feature: {
+      mark: { show: true },
+      dataView: { show: false, readOnly: false },
+      restore: { show: false },
+      saveAsImage: { show: false }
+    }
+  },
+  legend: {
+        orient: 'vertical', // 垂直排列图例
+        right: 5,         // 距离右侧的距离
+        y: 'center',       // 垂直居中
+		        itemWidth: 10, // 图例标记的图形宽度
+        itemHeight: 10, // 图例标记的图形高度
+		        textStyle: {
+            fontSize: 11 // 这里设置图例的字体大小为14
+        }
+  },
+  series: [
+    {
+       label:{
+   show:true,
+   position:'inside', //inside 扇形图上 ，center 扇形图中间 ,  outside  扇形图外面
+    formatter: '{d}%' 
+},
+      type: 'pie',
+      radius: '100%',
+	   center: ['40%', '50%'],
+      data: [
+        { value: 33, name: 'RNA-binding proteins' },	  
+        { value: 6, name: 'DNA-binding proteins' },	  
+        { value: 3, name: 'Metal-binding proteins' },
+        { value: 3, name: 'mRNA processing proteins' },
+        { value: 29, name: 'Transcription proteins' },
+        { value: 9, name: 'Cell cycle proteins' },
+        { value: 5, name: 'Developmental proteins' },	
+        { value: 17, name: 'Hydrolases' },
+        { value: 16, name: 'Transporters' },
+        { value: 5, name: 'Transferases' },
+        { value: 5, name: 'Kinases' },	
+        { value: 3, name: 'Isomerases' },
+        { value: 30, name: 'Other proteins' },		
+
+
+					
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+myChart1.setOption(option);
+
+</script>
+				
+ </div>
+ 
+ 
+<div class="col-md-5">
+<br>
+		<h3>6.Protein structure origin</h3>
+<br>
+    <div id="main6" style="height:100%"></div>
+	
+<script type="text/javascript">
+var chartDom = document.getElementById('main6');
+var myChart1 = echarts.init(chartDom);
+var option;
+
+option = {
+  tooltip: {
+    trigger: 'item',
+	formatter: '{b} : {c} ({d}%)',
+	  "textStyle": {
+        "fontSize": 16
+        }
+  },
+  legend: {
+    top: '5%',
+    right: 120, 
+	orient: 'vertical',
+  },
+  series: [
+    {
+      type: 'pie',
+      radius: ['40%', '75%'],
+	  center: ['40%', '38%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: false,
+        position: 'center',
+       
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 40,
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: 75, name: 'PDB' },
+        { value: 127, name: 'AlphaFold2' }
+      ]
+    }
+  ]
+};
+myChart1.setOption(option);
+
+</script>
+				
+ </div>
+ 
+</div>
+
+
+
+
+
+	  <div class="row">
+	    <div class="col-md-10 offset-md-1">
+	  <br>
+		<h3>7.Distribution of protein sequence length</h3>
+    <div id="main7" style="height:500%"></div>
+	
+<script type="text/javascript">
+var chartDom = document.getElementById('main7');
+var myChart1 = echarts.init(chartDom);
+var option;
+option = {
+  tooltip: {
+    trigger: 'axis',
+    formatter: '{b} : {c}',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: ["0-250","250-500","500-750","750-1000","1000-1250","1250-1500","1500-1750","1750-2000","2000-2250","2250-2500","2500-2750","2750-3000","3000-3250"],
+      axisTick: {
+        alignWithLabel: true
+      },
+	        axisLabel: {
+        fontSize: 16 // 修改为你想要的字体大小
+      }
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+	        axisLabel: {
+        fontSize: 16 // 修改为你想要的字体大小
+      }
+    }
+  ],
+  series: [
+    {
+      type: 'bar',
+      barWidth: '60%',
+      data: [21,42,55,22,8,7,2,3,1,1,0,1,1],
+
+    },
+  ]
+};
+
+myChart1.setOption(option);
+
+</script>
+				
+ </div>
+ 
+ 
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+	  
+<div class="row">
+<div class="col-md-10 offset-md-1">
+    <br>
+ <h3>8.Literature (Coverage from 1995-2024)</h3>
+ <br>
+<table id="table1" class="hover" style="width:100%">
+        <thead>
+            <tr>
+                <th class="col-width-1">PMID</th>			
+                <th class="col-width-2">Year</th>				
+                <th class="col-width-3">Journal</th>	
+                <th class="col-width-4">Title</th>					
+            </tr>
+        </thead>
+        <tbody>
+        {% for fooo in list %}
+         <tr>
+         <td><a href="https://pubmed.ncbi.nlm.nih.gov/{{ fooo.PMID }}/" title="Visit PubMed" target="_blank" class="bbb">{{ fooo.PMID }}</a></td>		 
+         <td>{{ fooo.Year }}</td>		 
+         <td>{{ fooo.Journal }}</td>
+         <td>{{ fooo.Title }}</td>
+         </tr>
+        {% endfor %}
+        </tbody>
+
+</table>
+
+<script>
+$(document).ready( function () {
+    $('#table1').DataTable( {
+    "createdRow": function (row, data, dataIndex) {
+          // row : tr dom
+          // data: row data
+          // dataIndex:row data's index
+          if (data[2] == "Nature") {
+              $('td', row).css("color", "#FFCC00");
+          }
+          if (data[2] == "Cell") {
+              $('td', row).css("color", "#009999");
+          }
+          if (data[2] == "Science") {
+              $('td', row).css("color", "#CC3366");
+          }
+
+      },
+	  pageLength: 20,
+
+      dom: 'Bfrtip',
+      "scrollX": true,
+      pagingType: "simple", // 简单分页类型，只有“上一页”和“下一页”按钮
+      lengthChange: true, // 不显示“显示记录条数”选择框
+       info: true, // 不显示“显示第几页到第几页的记录”的信息
+
+      buttons: [
+        'copy','csv','excel'
+    ],
+
+
+
+    } );
+} );
+</script>
+
+
+</div>
+</div>	  
+	  
+
+
+
+
+	     
+
+	  
+	  
+	  
+
+
+	  
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+  
+{%- endblock content %}

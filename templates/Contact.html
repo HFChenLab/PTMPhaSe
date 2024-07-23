@@ -1,0 +1,132 @@
+{# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+{% block content -%}
+<script>
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#contact').classList.add('active')
+</script>
+
+
+
+
+
+
+<div class="container-fluid">
+      <div class="row">
+           <div class="col-md-6 offset-md-1">
+            <br>
+             <h3>&#8251; Contact</h3><br>
+            </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-10 offset-md-1" style="border: 3px solid #009E73">
+          <a href="https://life.sjtu.edu.cn/teacher/HaifengChen" target="_blank"><font color="#FFA50A"><h4>Haifeng Chen, PhD</h4></font></a>
+          <font color="green"><h4> &#9993 haifengchen@sjtu.edu.cn</h4></font>
+          <p class="lead"><strong>Professor of Bioinformatics and Biostatistics<br>School of Life Sciences and Biotechnology, Shanghai Jiao Tong University, Shanghai 200240, China</strong></p>
+        </div>
+     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>
+
+	
+      <div class="row">
+        <div class="col-md-10 offset-md-1" style="border: 3px solid #009E73">
+          <font color="#FFA50A"><h4>Xiaokun Hong, PhD</h4></font>
+          <font color="green"><h4> &#9993 hongxk@fzu.edu.cn</h4></font>
+          <p class="lead"><strong>College of Biological Science and Engineering, Fuzhou University, Fuzhou, Fujian 350116, China</strong></p>
+        </div>
+     </div>
+
+	
+	
+	
+	
+	
+	<div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>
+	
+	<div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>	
+
+
+	
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>
+	
+
+	
+	<div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>	
+
+    <div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>
+
+	<div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>	
+
+    <div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>
+	
+	<div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>
+	
+	<div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>	
+
+
+
+
+
+
+    <div class="row">
+       <div class="col-md-10 offset-md-1">
+
+
+
+
+       </div>
+    </div>
+
+
+     
+  </div>
+  
+{%- endblock content %}

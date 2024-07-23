@@ -1,0 +1,620 @@
+  {# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+{% block content -%}
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables.css') }}">-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.dataTables.min.css') }}">
+
+<!--<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.2.min.js') }}"></script>-->
+<!--<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>-->
+<script>
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#search').classList.add('active')
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/3Dmol.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+
+
+
+
+<!--overview-->
+
+<div class="container-fluid">
+  <div class="row">
+   <div class="col-md-5 offset-md-1" >
+       <br>
+    <h3 style="color:#E69F00" >1.Overview</h3><br>
+    <p class="lead"><strong>Gene: {{A1}}<br><br>Protein: {{B1}}<br><br>Uniprot: <a href="https://www.uniprot.org/uniprot/{{C1}}" title="Visit Uniprot" target="_blank" class="bbb">{{C1}}</a><br><br>Organism:
+        {{D1}}<br><br>AlphaFold database: <a href="https://alphafold.ebi.ac.uk/entry/{{C1}}" title="Visit AlphaFold DB" target="_blank" class="bbb">{{C1}}</a><br><br>iPTMnet database: <a href="https://research.bioinformatics.udel.edu/iptmnet/entry/{{C1}}" title="Visit iPTMnet" target="_blank" class="bbb">{{C1}}</a></strong></p>
+
+   </div>
+     <div id="s6" class="col-md-4" style="text-align:center;">
+	 <br>
+	 <br>
+	 <br>
+
+	 <div id="container-02" class="mol-container2"></div>
+	 
+    <p class="lead"><strong>Display structure: <span id="compName">{{K1}}</span></strong></p>
+
+        <input class="btn btn-success" style="margin-left:5px;padding:0.2rem 0.5rem;background-color:#117341;border-color:#117341" type="button" onclick="changeComp(1)" id="prevComp" disabled="t" value="Prev">
+		
+		<input class="btn btn-success" style="margin-left:10px;padding:0.2rem 0.5rem;background-color:#117341;border-color:#117341" type="button" onclick="changeComp(0)" id="nextComp" value="Next">
+
+<style>
+.mol-container2 {
+  width:  70%;
+  height: 60%;
+  position: relative;
+
+  overflow: hidden;
+}
+</style>
+
+<script>
+        var complexList = {{complexList|safe}};
+        var labelList = {{labelList|safe}};
+        var compIndex = 0;
+
+        function load3d(pdbUri='/data/' + complexList[compIndex] + '.pdb', labels=[]) {
+            let element = $('#container-02');
+            element.empty();
+            let config = { backgroundColor: 'white' };
+            let viewer = $3Dmol.createViewer(element, config);
+            jQuery.ajax(pdbUri, {
+                success: function(data) {
+                    let v = viewer;
+                    v.addModel(data, "pdb");  // load data
+                    v.setStyle({}, { cartoon: { color: 'spectrum' } });  // style all atoms
+                    v.zoomTo();  // set camera
+                    v.render();  // render scene
+                    v.spin();  // spin
+                    labels.forEach(i => {
+                        v.addLabel(i.Label, {
+                            position: { x: i.x, y: i.y, z: i.z },
+                            backgroundColor: i.color || 0x800080,
+                            backgroundOpacity: 0.8
+                        });
+                    });
+                    v.zoom(1.2, 1000);  // slight zoom
+                },
+                error: function(hdr, status, err) {
+                    console.error("Failed to load PDB " + pdbUri + ": " + err);
+                }
+            });
+        }
+
+        function changeComp(op) {
+            let $prev = $('#prevComp');
+            let $next = $('#nextComp');
+            if (typeof op === 'number') {
+                if (op) {  // prev
+                    if (compIndex <= 0) {
+                        alert('Already first');
+                        return;
+                    } else {
+                        compIndex -= 1;
+                    }
+                } else {  // next
+                    if (compIndex === complexList.length - 1) {
+                        alert('Already last');
+                        return;
+                    } else {
+                        compIndex += 1;
+                    }
+                }
+            } else {
+                compIndex = complexList.indexOf(op);
+            }
+            let compName = complexList[compIndex];
+            $prev.attr('disabled', compIndex <= 0);
+            $next.attr('disabled', compIndex === complexList.length - 1);
+            load3d('/data/' + compName + '.pdb', labelList.filter(i => i.Structure === compName));
+            $('#compName').text(compName);
+            location.hash = "#s6";
+        }
+
+        $(document).ready(function() {
+            load3d('/data/{{K1}}.pdb', labelList.filter(i => i.Structure === '{{K1}}'));
+        });
+    </script>
+		
+
+		
+</div>
+	 
+	 
+</div> 
+  
+  
+
+
+
+
+
+ 
+
+
+
+<style>
+.mol-container1 {
+  width:  80%;
+  height: 80%;
+  position: relative;
+  overflow: hidden;
+}
+
+</style>
+
+
+<style>
+.blk{
+width:20px;height:20px;display:block;margin-right:10px;
+}
+</style>
+
+
+<style>
+.brk{
+width:20px;height:20px;display:block;margin-right:10px;margin-top:2px;
+}
+</style>
+
+
+<style>
+.circle{
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin-top:2px;
+    margin-right:10px;
+}
+</style>
+
+
+
+<!--two echarts-->
+<div class="row">
+<div class="col-md-10 offset-md-1">
+
+<h3 style="color:#56B4E9">2.Protein features</h3>
+
+<div style="display:flex;"><p class="lead"><strong><1>Disorder analysis: Exceed 0.5 means disorder</strong></p><a style="margin-left:110px;" href="../../data/{{Y1}}" title="Download protein features"><input class="btn btn-primary"  type="submit" value="Download" style="background-color:#56B4E9;border-color:#56B4E9;"></a></div>
+
+</div>
+</div>
+
+
+
+
+
+<div class="row">
+<div class="col-md-10 offset-md-1">
+
+
+<div id="main1" style="height:200%"></div>
+
+
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart1 = echarts.init(document.getElementById('main1'));
+
+      // 指定图表的配置项和数据
+      var option1 = {
+          toolbox: {
+    　　feature: {
+    　　　　saveAsImage: {　}
+    　　}
+    },
+        title: {
+          text: ''
+        },
+        tooltip: {
+         },
+<!--        legend: {-->
+<!--          data: ['IUPred2A']-->
+<!--        },-->
+        xAxis: {
+        name: 'Residues Number',
+        nameLocation:'center',
+        nameTextStyle:{
+       fontSize:16,// 字体大小
+       padding: 10,
+       color: '#000000',
+    },
+        data: {{E1}},
+        axisLabel: {
+        show: true,
+        textStyle: {
+        color: '#000000',
+   }}
+        },
+        grid:{
+        left:50,
+        right:25,
+        top:25,
+        bottom:50,
+        },
+        yAxis: {
+        name:'IUPred2A',
+        nameLocation:'center',
+        nameRotate: '90',
+        nameGap: 10,
+        nameTextStyle:{
+        fontSize:16,// 字体大小
+        padding: 20,
+        color: '#000000',
+    },
+         axisLabel: {
+         show: true,
+         textStyle: {
+         color: '#000000',
+         }}
+        },
+        series: [
+          {
+            name: 'IUPred2A',
+            type: 'line',
+            smooth: true,
+            color: '#C1232B',
+            data: {{F1}},
+                  markPoint: {symbolSize:40,
+      data: {{ mm2|tojson }}
+      },
+                            markLine: {
+                silent: true,
+                data: [{
+                    yAxis: 0.5
+                }],
+                lineStyle: {
+                    normal: {
+                    type: 'dashed',
+                    color:"#006600",
+                    width:3
+                },
+            },
+            }
+
+          },
+
+        ]
+      };
+
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart1.setOption(option1);
+
+
+    </script>
+</div>
+</div>
+
+
+<div class="row">
+<div class="col-md-10 offset-md-1">
+
+<div style="display:flex;"><p class="lead"><strong><2>pLDDT analysis: Exceed 70 means confidence</strong></p><a style="margin-left:110px;" href="../../data/{{Z1}}" title="Download protein features"><input class="btn btn-primary"  type="submit" value="Download" style="background-color:#56B4E9;border-color:#56B4E9;"></a></div>
+
+</div>
+</div>
+
+
+<div class="row">
+<div class="col-md-10 offset-md-1">
+
+
+<div id="main2" style="height:200%"></div>
+
+
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart1 = echarts.init(document.getElementById('main2'));
+
+      // 指定图表的配置项和数据
+      var option1 = {
+          toolbox: {
+    　　feature: {
+    　　　　saveAsImage: {　}
+    　　}
+    },
+        title: {
+          text: ''
+        },
+        tooltip: {
+         },
+<!--        legend: {-->
+<!--          data: ['IUPred2A']-->
+<!--        },-->
+        xAxis: {
+        name: 'Residues Number',
+        nameLocation:'center',
+        nameTextStyle:{
+       fontSize:16,// 字体大小
+       padding: 10,
+       color: '#000000',
+    },
+        data: {{H1}},
+        axisLabel: {
+        show: true,
+        textStyle: {
+        color: '#000000',
+   }}
+        },
+        grid:{
+        left:50,
+        right:25,
+        top:25,
+        bottom:50,
+        },
+        yAxis: {
+        name:'pLDDT',
+        nameLocation:'center',
+        nameRotate: '90',
+        nameGap: 10,
+        nameTextStyle:{
+        fontSize:16,// 字体大小
+        padding: 20,
+        color: '#000000',
+    },
+         axisLabel: {
+         show: true,
+         textStyle: {
+         color: '#000000',
+         }}
+        },
+        series: [
+          {
+            name: 'pLDDT',
+            type: 'line',
+            smooth: true,
+            color: '#C1232B',
+            data: {{I1}},
+                  markPoint: {symbolSize:40,
+      data: {{ mm3|tojson }}
+      },
+                            markLine: {
+                silent: true,
+                data: [{
+                    yAxis: 70
+                }],
+                lineStyle: {
+                    normal: {
+                    type: 'dashed',
+                    color:"#006600",
+                    width:3
+                },
+            },
+            }
+
+          },
+
+        ]
+      };
+
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart1.setOption(option1);
+
+
+    </script>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--protein interaction-->
+<div class="row">
+<div class="col-md-10 offset-md-1">
+    <br>
+<h3 style="color:#009E73">3.PTM on Liquid-Liquid Phase Separation</h3>
+<p class="lead"><strong><1>PTM_action_mode: Direct (PTM sites locate onto the LLPS regions), Allosteric (PTM sites locate onto other regions)<br><2>Site annotation: PTM_action_mode, Domain; <3>Structure annotation: Structure, Origin (<a href="https://www.rcsb.org/" title="Visit PDB" target="_blank" class="bbb">PDB</a>, <a href="https://alphafold.ebi.ac.uk/" title="Visit AlphaFold" target="_blank" class="bbb">AlphaFold2</a>), PDBRES</strong></p>
+
+
+<table id="data" class="hover" style="width:5%">
+        <thead>
+            <tr>
+                <th>Organism</th>
+                <th>Enzymes</th>				
+                <th>PTM</th>				
+                <th>Gene</th>				
+                <th>Uniprot</th>				
+                <th>Site</th>
+                <th>AA</th>
+                <th>Effect</th>
+                <th>LLPS_regions</th>				
+                <th>LLPS_partners</th>					
+                <th>MLOs</th>
+                <th>Methods</th>				
+                <th>Diseases</th>				
+                <th>PMID</th>
+                <th>PTM_action_mode</th>	
+                <th>Domain</th>	
+                <th>Domain_range</th>					
+                <th>Structure</th>	
+				<th>Origin</th>
+                <th>PDBRES</th>			              
+            </tr>
+        </thead>
+        <tbody>
+        {% for fooo in int %}
+         <tr>
+         <td>{{ fooo.Organism }}</td>
+         <td>{{ fooo.Enzymes }}</td>		 
+         <td>{{ fooo.PTM }}</td>
+         <td>{{ fooo.Gene }}</td>
+         <td><a href="https://www.uniprot.org/uniprot/{{ fooo.Uniprot }}/" title="Visit Uniprot" target="_blank" class="bbb">{{ fooo.Uniprot }}</a></td>
+         <td>{{ fooo.Site }}</td>
+         <td>{{ fooo.AA }}</td>
+         <td>{{ fooo.Effect }}</td>
+         <td>{{ fooo.LLPS_regions }}</td>	
+         <td>{{ fooo.LLPS_partners }}</td>	
+         <td>{{ fooo.MLOs }}</td>	
+         <td>{{ fooo.Methods }}</td>			 
+         <td>{{ fooo.Diseases }}</td>		 
+         <td><a href="https://pubmed.ncbi.nlm.nih.gov/{{ fooo.PMID }}/" title="Visit PubMed" target="_blank" class="bbb">{{ fooo.PMID }}</a></td>
+         <td>{{ fooo.PTM_action_mode }}</td>	
+         <td>{{ fooo.Domain }}</td>
+         <td>{{ fooo.Domain_range }}</td>		 
+		 <td><a href="#s6" onclick="changeComp('{{fooo.Structure}}')" title="Show structure" class="bbb">{{ fooo.Structure }}</a></td>	 
+         <td>{{ fooo.Origin }}</td>
+         <td>{{ fooo.PDBRES }}</td>		 
+
+         </tr>
+        {% endfor %}
+        </tbody>
+
+</table>
+
+<script>
+$(document).ready( function () {
+    $('#data').DataTable( {
+    "createdRow": function (row, data, dataIndex) {
+          // row : tr dom
+          // data: row data
+          // dataIndex:row data's index
+          if (data[7] == "promotion") {
+              $('td', row).css("color", "#0000FF");
+          }
+          if (data[7] == "inhibition") {
+              $('td', row).css("color", "#008837");
+          }
+
+
+
+      },
+
+      dom: 'Bfrtip',
+      "scrollX": true,
+
+      buttons: [
+        'copy','csv','excel'
+    ]
+
+    } );
+} );
+</script>
+</div>
+</div>
+
+
+
+<!--protein interaction-->
+<div class="row">
+<div class="col-md-10 offset-md-1">
+    <br>
+<h3 style="color:#D55E00">4.High-quality validated Protein-Protein Interactions</h3>
+<p class="lead"><strong>PPI annotation: <a href="https://hint.yulab.org/" title="Visit HINT" target="_blank" class="bbb">HINT database </a>(High-quality INTeractomes)</strong></p>
+
+
+<table id="data2" class="hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Organism</th>
+                <th>Protein1</th>				
+                <th>Uniprot1</th>				
+                <th>Gene1</th>				
+                <th>Uniprot2</th>				
+                <th>Gene2</th>
+                <th>PMID</th>		
+               
+            </tr>
+        </thead>
+        <tbody>
+        {% for foooo in ppi %}
+         <tr>
+         <td>{{ foooo.Organism }}</td>
+         <td>{{ foooo.Protein1 }}</td>		 
+         <td><a href="https://www.uniprot.org/uniprot/{{ foooo.Uniprot1 }}/" title="Visit Uniprot" target="_blank" class="bbb">{{ foooo.Uniprot1 }}</a></td>
+         <td>{{ foooo.Gene1 }}</td>
+         <td><a href="https://www.uniprot.org/uniprot/{{ foooo.Uniprot2 }}/" title="Visit Uniprot" target="_blank" class="bbb">{{ foooo.Uniprot2 }}</a></td>
+         <td>{{ foooo.Gene2 }}</td>	 
+         <td><a href="https://pubmed.ncbi.nlm.nih.gov/{{ foooo.PMID }}/" title="Visit PubMed" target="_blank" class="bbb">{{ foooo.PMID }}</a></td>
+
+         </tr>
+        {% endfor %}
+        </tbody>
+
+</table>
+
+<script>
+$(document).ready( function () {
+    $('#data2').DataTable( {
+    "createdRow": function (row, data, dataIndex) {
+          // row : tr dom
+          // data: row data
+          // dataIndex:row data's index
+          if (data2[7] == "promotion") {
+              $('td', row).css("color", "#0000FF");
+          }
+          if (data2[7] == "inhibition") {
+              $('td', row).css("color", "#008837");
+          }
+
+
+
+      },
+
+      dom: 'Bfrtip',
+      "scrollX": true,
+
+      buttons: [
+        'copy','csv','excel'
+    ]
+
+    } );
+} );
+</script>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+{%- endblock content %}

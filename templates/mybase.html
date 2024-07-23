@@ -1,0 +1,164 @@
+{# Jinja web template engine which will be redered by Flask #}
+{# This is a custom template based on bootstrap/base.html #}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block doc -%}
+<!DOCTYPE html>
+<html{% block html_attribs %} lang="en" {% endblock html_attribs %}>
+{%- block html %}
+  <head>
+    {%- block head %}
+    <title>{% block title %} PTMPhaSe {% endblock title %}</title>
+
+    {%- block metas %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%- endblock metas %}
+
+    {%- block styles %}
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css') }}">
+
+	<style>
+	.menuItem{
+		color:white;
+		display: flex;
+        align-items:center;
+        justify-content:center;
+		width:150px;
+		text-decoration:none
+		
+	}
+	.menuItem:hover{
+		background:#ada;
+		border-bottom:solid 3px orange;
+	}
+	.menuItem:hover>a{
+      color:orange;
+	  text-decoration:none;
+	  
+	}
+	
+	
+	.topmenu{
+		display:flex;
+		width:80%;
+	}
+	.menuItem>a{
+		color:white;
+		text-decoration:none;
+		font-size:24px;
+	}
+	.menuItem.active{
+		border-bottom:solid 3px orange;
+	}
+	.menuItem.active>a{
+		color:orange;
+	}	
+	.bbb{
+	text-decoration:underline
+	}	
+		
+	</style>
+	
+
+	
+
+
+    {%- endblock styles %}
+    {%- endblock head %}
+  </head>
+  <body{% block body_attribs %}{% endblock body_attribs %}>
+    {% block body -%}
+    
+    {# Add a title area before navbar #}
+    {% block top -%}
+    <div class="container-fluid" style="background-color: #117341;">
+      <div class="row text-white h-80" style="display:flex;" >
+
+      <div style="display:flex;width:15%;color:white;padding:5px;">
+          <a href="/Home"><img width="50px" height="50px" src="{{ url_for('static', filename='img/database_icon.png') }}"></a>
+          <div style="display:flex;align-items:center;"><h2 style="margin:0;">PTMPhaSe</h2></div>
+        </div>
+
+		<div class="topmenu">
+		  <div id="home" class="menuItem">
+			<a class="item" href="{{ url_for('index') }}">Home</a>
+		  </div>
+		  <div id="browse" class="menuItem">
+			<a class="item" href="{{ url_for('show', page='Browse') }}">Browse</a>
+		  </div>
+		  
+		  <div id="search" class="menuItem">
+			<a class="item" href="{{ url_for('show', page='Search') }}">Search</a>
+		  </div>
+		  <div id="download" class="menuItem">
+			<a class="item" href="{{ url_for('show', page='Download') }}">Download</a>
+		  </div>
+		  <div id="statistics" class="menuItem">
+			<a class="item" href="{{ url_for('show', page='Statistics') }}">Statistics</a>
+		  </div>		  		  
+		  <div id="help" class="menuItem">
+			<a class="item"  href="{{ url_for('show', page='Help') }}">Help</a>
+		  </div>
+		  <div id="contact" class="menuItem">
+			<a class="item"  href="{{ url_for('show', page='Contact') }}">Contact</a>
+		  </div>
+		</div>
+
+      </div>
+    </div>
+    {%- endblock top %}
+    
+    {% block navbar %}
+    {%- endblock navbar %}
+    {% block content -%}
+    {%- endblock content %}
+    
+    {# Footer #}
+    {% block footer -%}
+    <footer class="footer">
+
+
+      <div class="container-fluid">
+	   <div class="row">
+	     <div class="col-md-2 offset-md-3">
+		   <img src="{{ url_for('static', filename='img/S2.png') }}" width="160%" height="95%">
+		 </div>
+	  
+	      <div class="col-md-5 offset-md-1">
+           <p><font color="white">&copy PTMPhaSe 2024 | All Rights Reserved<br>沪交ICP备XXX</font><br><font color="white">{{ global_count() }} Visitors</font></p>
+         </div>
+
+        </div>
+      </div>
+
+
+
+
+    </footer>
+    {%- endblock footer %}
+
+    {% block scripts %}
+
+    <!-- JQuery Core -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+    <!--<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>-->
+    <!-- JavaScript Bundle with Popper -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>    <!--dataTable-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+<!--    <script src="{{ url_for('static', filename='js/my.js') }}"></script>-->
+<!--    <script type="text/javascript" src="{{ url_for('static', filename='js/typeahead.bundle.js') }}"></script>-->
+
+
+
+   
+
+    {%- endblock scripts %}
+    {%- endblock body %}
+  </body>
+{%- endblock html %}
+</html>
+{% endblock doc -%}
+

@@ -1,0 +1,183 @@
+{# Jinja web template engine which will be redered by Flask #}
+{# Template Inheritance #}
+{% extends "mybase.html" %}
+
+{# Adding a lang="en" attribute to the <html>-tag #}
+{% block html_attribs %}
+  lang="en"
+{% endblock %}
+
+{% block content -%}
+
+<script type="text/jscript">
+function compute1(){
+document.getElementById("keyword2").value="FUS";
+}
+</script>
+
+<script type="text/jscript">
+function compute2(){
+document.getElementById("keyword2").value="";
+}
+</script>
+
+<script>
+	let $a = document.querySelector('.menuItem.active')
+	if($a){$a.classList.remove('active')}
+	document.querySelector('#search').classList.add('active')
+</script>
+
+
+<div class="container-fluid">
+ <form class="form form-horizontal" method="POST" action="/Search" role="form">
+
+
+        <div class="row">
+          <div class="col-md-6 offset-md-1">
+            <br>
+            <h3><label for="search_type">&#8251; Advanced Search</label></h3><br>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-4 offset-md-1">
+            <h4>Gene/Uniprot</h4>
+          </div>
+        </div>
+
+      <div class="row">
+        <div class="col-md-4 offset-md-1 no-label">
+            <input class="form-control autocomplete" id="keyword2" name="keyword2" type="text"  placeholder="Gene or Uniprot">
+        </div>
+      </div>
+
+        <div class="row">
+        <div class="col-md-5 offset-md-1 no-label">
+            <br>
+        </div>
+      </div>
+
+
+     <div class="row">
+          <div class="col-md-4 offset-md-1">
+            <h4>Organism</h4>
+          </div>
+     </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4 offset-md-1">
+           <select class="form-control" id="search_organism" name="search_organism"><option selected value="Homo sapiens">H. sapiens</option><option value="Arabidopsis thaliana">A. thaliana</option><option value="Caenorhabditis elegans">C. elegans</option><option value="Drosophila melanogaster">D. melanogaster</option><option value="Saccharomyces cerevisiae">S. cerevisiae</option><option value="Schizosaccharomyces pombe">S. pombe</option><option value="Mus musculus">M. musculus</option><option value="Rattus norvegicus">R. norvegicus</option><option value="Sus scrofa">S. scrofa</option><option value="Mycobacterium tuberculosis">M. tuberculosis</option><option value="Severe acute respiratory syndrome coronavirus 2">SARS-COV2</option><option value="Bluetongue virus 2">Bluetongue virus 2</option><option value="Measles virus">Measles virus</option><option value="Cytorhabdovirus hordei">C. hordei</option></select>
+	   </div>
+    </div>
+
+
+        <div class="row">
+        <div class="col-md-5 offset-md-1 no-label">
+            <br>
+        </div>
+      </div>
+
+
+
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <h4>PTM type</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <input checked class="regions" id="Phos" name="Phos" type="checkbox" value="y" style="margin-left:0px;width: 20px; height: 20px"> <label for="Phos" style="font-size:1.3rem">Phos</label>
+            <input checked class="regions" id="Me" name="Me" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Me" style="font-size:1.3rem">Me</label>
+            <input checked class="regions" id="Ace" name="Ace" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Ace" style="font-size:1.3rem">Ace</label>
+            <input checked class="regions" id="Sumo" name="Sumo" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="SUMO" style="font-size:1.3rem">SUMO</label>
+            <input checked class="regions" id="ADPr" name="ADPr" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="ADPr" style="font-size:1.3rem">ADPr</label>
+            <input checked class="regions" id="Ub" name="Ub" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Ub" style="font-size:1.3rem">Ub</label>
+            <input checked class="regions" id="Citru" name="Citru" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Citru" style="font-size:1.3rem">Citru</label>
+			<br>
+            <input checked class="regions" id="Glyco" name="Glyco" type="checkbox" value="y" style="margin-left:0px;width: 20px; height: 20px"> <label for="Glyco" style="font-size:1.3rem">Glyco</label>
+            <input checked class="regions" id="Gluta" name="Gluta" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Gluta" style="font-size:1.3rem">Gluta</label>
+            <input checked class="regions" id="Hypu" name="Hypu" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Hypu" style="font-size:1.3rem">Hypu</label>
+            <input checked class="regions" id="NEDDy" name="NEDDy" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="NEDDy" style="font-size:1.3rem">NEDDy</label>
+            <input checked class="regions" id="Myris" name="Myris" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Myris" style="font-size:1.3rem">Myris</label>
+            <input checked class="regions" id="Nitro" name="Nitro" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Nitro" style="font-size:1.3rem">Nitro</label>			
+            <input checked class="regions" id="Hydro" name="Hydro" type="checkbox" value="y" style="width: 20px; height: 20px"> <label for="Hydro" style="font-size:1.3rem">Hydro</label>			
+          </div>
+        </div>
+
+
+
+	<div class="row">
+        <div class="col-md-6">
+            <br>
+        </div>
+    </div>	
+
+
+
+
+
+
+
+
+<div class="row">
+<br>
+    <div class="col-md-1 offset-md-1">
+        <input class="btn btn-success" id="example1" name="example1" type="button" value="Example" onClick="compute1()"  style="background-color:#117341;border-color:#117341">
+    </div>
+    <div class="col-md-1">
+        <input class="btn btn-success" id="example2" name="example2" type="button" value="Clear" onClick="compute2()"  style="background-color:#117341;border-color:#117341">
+    </div>
+     <div class="col-md-1">
+         <input class="btn btn-success" id="submit" name="submit" type="submit" value="Search" style="background-color:#F39925;border-color:#F39925">
+      </div>
+</div>
+
+
+      <div class="row">
+          <div class="col-md-6 offset-md-1">
+		  <br>
+              <font color="red"><h3>{{X10}}</h3></font>
+          </div>
+      </div>
+
+
+
+
+<div class="row">
+<div class="col-md-6 offset-md-1">
+<br>
+
+<br>
+    <br>
+    <br>
+	    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+</form>
+</div>
+
+
+
+  
+{%- endblock content %}
+
+
