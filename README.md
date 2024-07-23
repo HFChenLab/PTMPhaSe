@@ -1,5 +1,5 @@
 # PTMPhaSe
-A website (PTMint) for **Post Translational Modification (PTM) regualation on liquid-liquid phase separation** created by *Xiaokun Hong, Jiyang Lv*
+A website (PTMPhaSe) for **Post Translational Modification (PTM) regualation on liquid-liquid phase separation** created by *Xiaokun Hong, Jiyang Lv*
 
 
 ## Set up environment
