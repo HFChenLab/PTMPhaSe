@@ -1,6 +1,9 @@
 # PTMPhaSe
 A website (PTMPhaSe) for **Post Translational Modification (PTM) regulation on liquid-liquid phase separation** created by *Xiaokun Hong, Jiyang Lv*
 
+# Contact
+<1>haifengchen@sjtu.edu.cn
+<2>hongxk@fzu.edu.cn
 
 ## Set up environment
 
